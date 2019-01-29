@@ -5,18 +5,19 @@ require("dotenv").config();
 const request = require("request");
 const inquirer = require("inquirer");
 const moment = require("moment");
+const Spotify = require("node-spotify-api");
 
 // load spotify keys
 // import keys from "./keys.js";
 
 // turn on new spotify app
-// var spotify = new Spotify(keys.spotify);
+// const spotify = new Spotify(keys);
 
 // Function to search for concerts
 function concertThis(band) {
   console.log('concertThis');
   // URL to call bands in town
-  var queryURL = 'https://rest.bandsintown.com/artists/' + band + '/events?app_id=codingbootcamp';
+  let queryURL = 'https://rest.bandsintown.com/artists/' + band + '/events?app_id=codingbootcamp';
   console.log(queryURL);
 
   // Call bands in town
@@ -47,6 +48,19 @@ function concertThis(band) {
   })
 }
 
+// Call spotify for songs
+function spotifySong(song) {
+  console.log(song);
+}
+
+// Call OMDB
+function movieThis(movie) {
+  console.log(movie);
+}
+
+function doWhatItSays() {
+  console.log("do what it says");
+}
 
 // Create a prompt to select option
 inquirer
@@ -65,8 +79,18 @@ inquirer
   ])
   .then(function (option) {
     console.log(option);
+    
     if (option.option === 'concert-this') {
       concertThis(option.searchItem);
+    }
+    else if (option.option === 'spotify-this-song') {
+      spotifySong(option.searchItem);
+    }
+    else if (option.option === 'movie-this') {
+      movieThis(option.searchItem);
+    }
+    else {
+      doWhatItSays();
     }
   })
 
